@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex Rivera | Portfolio & Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #fafbfc;
+      --bg-elevated: #ffffff;
+      --text-primary: #0d1117;
+      --text-secondary: #57606a;
+      --text-tertiary: #7d8590;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-hover: #0860ca;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --bg-elevated: #161b22;
+        --text-primary: #e6edf3;
+        --text-secondary: #c9d1d9;
+        --text-tertiary: #8b949e;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --accent-hover: #79c0ff;
+      }
+    }
+
+    body {
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background-color: rgba(13, 17, 23, 0.95);
+      }
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 60px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-elevated) 100%);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border);
+      transform: translateY(-2px);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 4rem 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(9, 105, 218, 0.1);
+    }
+
+    .project-card-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--accent) 0%, #79c0ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+    }
+
+    .project-card-content {
+      padding: 2rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card-desc {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--border);
+      color: var(--text-secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* Blog Section */
+    .blog-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blog-post-item {
+      padding: 2rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .blog-post-item:hover {
+      background: var(--bg-elevated);
+      border-radius: 6px;
+      padding-left: 2.5rem;
+    }
+
+    .blog-date {
+      color: var(--text-tertiary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-post-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-excerpt {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Blog Post View */
+    .blog-post-full {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .post-header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+
+    .post-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--text-tertiary);
+      font-size: 0.95rem;
+    }
+
+    .post-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .post-content h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem 0;
+      color: var(--text-primary);
+    }
+
+    .post-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .post-content code {
+      background: var(--border);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9em;
+    }
+
+    .back-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      display: inline-block;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent-hover);
+    }
+
+    /* About Section */
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-elevated);
+      padding: 3rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .about-content h3 {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-content h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .about-content p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      padding: 3rem;
+      margin-top: 4rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-content {
+        padding: 2rem;
+      }
+
+      .post-header h1 {
+        font-size: 1.75rem;
+      }
+
+      .post-content {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#" class="logo" onclick="showSection('home')">AR</a>
+      <ul class="nav-links">
+        <li><a onclick="showSection('home')" id="nav-home">Home</a></li>
+        <li><a onclick="showSection('portfolio')" id="nav-portfolio">Portfolio</a></li>
+        <li><a onclick="showSection('blog')" id="nav-blog">Blog</a></li>
+        <li><a onclick="showSection('about')" id="nav-about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home-section" class="section">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Hi, I'm Alex Rivera</h1>
+          <p class="hero-subtitle">Full-stack developer & creative thinker building beautiful, scalable web experiences</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" onclick="showSection('portfolio')">View My Work</button>
+            <button class="btn btn-secondary" onclick="showSection('blog')">Read My Blog</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio-section" class="section hidden">
+      <div class="container">
+        <h2>Portfolio</h2>
+        <div class="portfolio-grid" id="portfolio-grid"></div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog-section" class="section hidden">
+      <div class="container">
+        <h2>Blog</h2>
+        <div id="blog-list-container" class="blog-list"></div>
+        <div id="blog-post-container" class="blog-post-full hidden"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about-section" class="section hidden">
+      <div class="container">
+        <h2>About Me</h2>
+        <div class="about-content">
+          <p>I'm a full-stack developer with a passion for creating elegant solutions to complex problems. With 5+ years of experience in web development, I specialize in React, Node.js, and modern web technologies.</p>
+
+          <h3>Skills</h3>
+          <p>JavaScript, React, Node.js, TypeScript, CSS3, HTML5, PostgreSQL, MongoDB, AWS, Git, REST APIs, GraphQL, Docker</p>
+
+          <h3>Experience</h3>
+          <p><strong>Senior Frontend Developer</strong> at TechCorp (2023-Present)<br>Leading frontend architecture and mentoring junior developers on modern React patterns and performance optimization.</p>
+
+          <p><strong>Full Stack Developer</strong> at StartupXYZ (2021-2023)<br>Built scalable web applications from concept to production, working with cross-functional teams.</p>
+
+          <h3>Education</h3>
+          <p>Bachelor of Science in Computer Science, State University (2019)</p>
+
+          <h3>Interests</h3>
+          <p>Outside of coding, I enjoy writing technical blog posts, contributing to open source, and exploring the latest web technologies.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="#" title="GitHub">GitHub</a>
+        <a href="#" title="LinkedIn">LinkedIn</a>
+        <a href="#" title="Twitter">Twitter</a>
+        <a href="#" title="Email">Email</a>
+      </div>
+      <p>&copy; 2026 Alex Rivera. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mock Data
+    const projects = [
+      {
+        id: 1,
+        title: 'E-Commerce Platform',
+        description: 'Full-stack marketplace with real-time inventory management and payment integration.',
+        tags: ['React', 'Node.js', 'PostgreSQL'],
+        icon: '🛍️'
+      },
+      {
+        id: 2,
+        title: 'Analytics Dashboard',
+        description: 'Interactive data visualization tool for tracking KPIs and business metrics.',
+        tags: ['React', 'D3.js', 'TypeScript'],
+        icon: '📊'
+      },
+      {
+        id: 3,
+        title: 'Task Management App',
+        description: 'Collaborative workspace for teams to organize projects and track progress.',
+        tags: ['React', 'Firebase', 'Tailwind'],
+        icon: '✓'
+      },
+      {
+        id: 4,
+        title: 'Content Management System',
+        description: 'Headless CMS with GraphQL API for managing digital content at scale.',
+        tags: ['Node.js', 'GraphQL', 'MongoDB'],
+        icon: '📝'
+      },
+      {
+        id: 5,
+        title: 'Social Network Platform',
+        description: 'Real-time messaging and feed application with WebSocket support.',
+        tags: ['React', 'Socket.io', 'Node.js'],
+        icon: '💬'
+      },
+      {
+        id: 6,
+        title: 'Machine Learning Pipeline',
+        description: 'Data processing and ML model serving infrastructure with API endpoints.',
+        tags: ['Python', 'Node.js', 'Docker'],
+        icon: '🤖'
+      }
+    ];
+
+    const blogPosts = [
+      {
+        id: 1,
+        title: 'Building Scalable React Applications',
+        date: 'June 10, 2026',
+        excerpt: 'Explore best practices for structuring large React applications including component organization, state management, and performance optimization techniques.',
+        content: `<h3>Introduction</h3>
+<p>Building React applications is straightforward, but as your application grows, maintaining code quality and performance becomes increasingly challenging. In this post, we'll explore proven strategies for scaling React applications.</p>
+
+<h3>Component Architecture</h3>
+<p>The foundation of a scalable React app is a solid component architecture. Start by breaking down your UI into small, focused components that follow the Single Responsibility Principle. Each component should have a clear purpose and minimal props.</p>
+<p>Consider using container and presentational components to separate concerns. Container components handle logic and state management, while presentational components focus purely on rendering UI.</p>
+
+<h3>State Management</h3>
+<p>As applications grow, managing state becomes complex. While local component state works for small apps, larger projects benefit from centralized state management solutions like Redux or Context API.</p>
+<p>Choose based on your needs: Context API for moderate state, Redux for complex state trees with many interconnected components.</p>
+
+<h3>Performance Optimization</h3>
+<p>React is fast by default, but optimization is crucial for large apps. Use React.memo for expensive components, implement code splitting, and leverage lazy loading for routes and components.</p>
+<p>Always measure performance with React DevTools Profiler before and after optimizations to ensure your changes have the desired impact.</p>
+
+<h3>Conclusion</h3>
+<p>Building scalable React applications requires thoughtful architecture, proper state management, and continuous performance monitoring. Start with solid fundamentals and refactor as your app evolves.</p>`
+      },
+      {
+        id: 2,
+        title: 'The Future of JavaScript: ES2026 Features',
+        date: 'May 28, 2026',
+        excerpt: 'A deep dive into upcoming JavaScript features that will shape how we write code in 2026 and beyond.',
+        content: `<h3>Overview</h3>
+<p>JavaScript continues to evolve at a rapid pace. As we move through 2026, several exciting features are making their way into the language specification. Let's explore what's coming and how to prepare.</p>
+
+<h3>Records and Tuples</h3>
+<p>One of the most anticipated features is the addition of Records and Tuples, immutable data structures that will make it easier to write functional code in JavaScript. Records are like objects but immutable, while tuples are immutable arrays.</p>
+
+<h3>Pattern Matching</h3>
+<p>Pattern matching allows for more expressive conditional logic. Instead of nested if-else statements or switch cases, you can use pattern matching to destructure and match values simultaneously.</p>
+
+<h3>Async Improvements</h3>
+<p>New async features continue to improve error handling and composition of asynchronous operations. These include better promise chaining and easier task cancellation.</p>
+
+<h3>Looking Ahead</h3>
+<p>The JavaScript ecosystem is becoming more powerful and expressive. Keep learning and experimenting with new features as they become available through transpilers and polyfills.</p>`
+      },
+      {
+        id: 3,
+        title: 'DevOps Best Practices for Small Teams',
+        date: 'May 5, 2026',
+        excerpt: 'Practical DevOps strategies that small teams can implement without extensive infrastructure knowledge or resources.',
+        content: `<h3>Getting Started with DevOps</h3>
+<p>DevOps doesn't require a dedicated team or massive infrastructure. Small teams can implement DevOps practices with minimal overhead by focusing on automation and continuous improvement.</p>
+
+<h3>Automated Testing</h3>
+<p>The foundation of good DevOps is automated testing. Implement unit tests, integration tests, and end-to-end tests early. Automate test execution in your CI/CD pipeline so every code change is validated.</p>
+
+<h3>Continuous Integration</h3>
+<p>Set up a CI pipeline that runs tests automatically on every commit. Tools like GitHub Actions, GitLab CI, and CircleCI make this accessible and affordable for small teams.</p>
+
+<h3>Infrastructure as Code</h3>
+<p>Define your infrastructure using code and version control it like you would application code. This makes your infrastructure reproducible, auditable, and easier to manage.</p>
+
+<h3>Monitoring and Logging</h3>
+<p>Don't skip monitoring. Use tools like Prometheus, Grafana, and ELK to track system health and debug issues faster. Good observability is crucial for reliable systems.</p>
+
+<h3>Start Small</h3>
+<p>You don't need to implement everything at once. Start with one CI/CD pipeline, add monitoring for critical services, and iterate from there.</p>`
+      }
+    ];
+
+    // State
+    let currentSection = 'home';
+    let currentBlogPost = null;
+
+    // Initialize
+    function init() {
+      renderPortfolioGrid();
+      showSection('home');
+    }
+
+    function renderPortfolioGrid() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = projects.map(project => `
+        <div class="project-card">
+          <div class="project-card-image">${project.icon}</div>
+          <div class="project-card-content">
+            <h3>${project.title}</h3>
+            <p class="project-card-desc">${project.description}</p>
+            <div class="project-tags">
+              ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderBlogList() {
+      const container = document.getElementById('blog-list-container');
+      container.innerHTML = blogPosts.map(post => `
+        <div class="blog-post-item" onclick="viewBlogPost(${post.id})">
+          <div class="blog-date">${post.date}</div>
+          <h3>${post.title}</h3>
+          <p class="blog-excerpt">${post.excerpt}</p>
+        </div>
+      `).join('');
+    }
+
+    function viewBlogPost(postId) {
+      const post = blogPosts.find(p => p.id === postId);
+      if (!post) return;
+
+      currentBlogPost = post;
+      document.getElementById('blog-list-container').classList.add('hidden');
+      document.getElementById('blog-post-container').classList.remove('hidden');
+
+      document.getElementById('blog-post-container').innerHTML = `
+        <a class="back-link" onclick="closeBlogPost()">← Back to all posts</a>
+        <article class="blog-post-full">
+          <div class="post-header">
+            <h1>${post.title}</h1>
+            <div class="post-meta">
+              <span>${post.date}</span>
+              <span>5 min read</span>
+            </div>
+          </div>
+          <div class="post-content">
+            ${post.content}
+          </div>
+        </article>
+      `;
+    }
+
+    function closeBlogPost() {
+      currentBlogPost = null;
+      document.getElementById('blog-list-container').classList.remove('hidden');
+      document.getElementById('blog-post-container').classList.add('hidden');
+    }
+
+    function showSection(section) {
+      // Hide all sections
+      document.querySelectorAll('main > section').forEach(s => {
+        s.classList.add('hidden');
+      });
+
+      // Remove active state from all nav links
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      // Show selected section
+      currentSection = section;
+      let sectionEl;
+      let navLink;
+
+      switch(section) {
+        case 'home':
+          sectionEl = document.getElementById('home-section');
+          navLink = document.getElementById('nav-home');
+          break;
+        case 'portfolio':
+          sectionEl = document.getElementById('portfolio-section');
+          navLink = document.getElementById('nav-portfolio');
+          break;
+        case 'blog':
+          sectionEl = document.getElementById('blog-section');
+          navLink = document.getElementById('nav-blog');
+          closeBlogPost();
+          renderBlogList();
+          break;
+        case 'about':
+          sectionEl = document.getElementById('about-section');
+          navLink = document.getElementById('nav-about');
+          break;
+      }
+
+      if (sectionEl) {
+        sectionEl.classList.remove('hidden');
+      }
+      if (navLink) {
+        navLink.classList.add('active');
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    // Initialize on load
+    init();
+  </script>
+</body>
+</html>
